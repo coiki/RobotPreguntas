@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  url_launcher: "^5.4.2"
+  animated_text_kit: "^2.2.0"
 
   cupertino_icons: ^0.1.2
 
@@ -22,3 +24,4 @@ flutter:
 
   assets:
     - images/
+    - audios/
