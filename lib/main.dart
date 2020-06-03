@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -36,7 +37,11 @@ class RobotPage extends StatelessWidget {
           // DisplayedText(), //removing this, to push to git
           Robot(),
           FlatButton(
-            onPressed: _launchURL,
+            onPressed: () {
+              final player = AudioCache();
+              player.play('audios/sonido2.mp3');
+              _launchURL();
+            },
             child: Image(
               image: AssetImage('images/anuncio.png'),
             ),
@@ -57,6 +62,13 @@ class _RobotState extends State<Robot> {
 
   @override
   Widget build(BuildContext context) {
+    //Audio player creation
+    final player = AudioCache();
+
+    // To force stop after playing each sound.
+    player.fixedPlayer;
+
+    //Assets caching (images and mp3s)
     precacheImage(new AssetImage('images/robot1.png'), context);
     precacheImage(new AssetImage('images/robot2.png'), context);
     precacheImage(new AssetImage('images/robot3.png'), context);
@@ -66,15 +78,25 @@ class _RobotState extends State<Robot> {
     precacheImage(new AssetImage('images/robot7.png'), context);
     precacheImage(new AssetImage('images/robot8.png'), context);
     precacheImage(new AssetImage('images/robot9.png'), context);
+    player.load("audios/sonido1.mp3");
+    player.load("audios/sonido2.mp3");
+    player.load("audios/sonido3.mp3");
+    player.load("audios/sonido4.mp3");
+    player.load("audios/sonido5.mp3");
+    player.load("audios/sonido6.mp3");
+    player.load("audios/sonido7.mp3");
+
+    // Returned Widget
     return Center(
       child: FlatButton(
         onPressed: () {
           setState(() {
             robotNumber = Random().nextInt(7) + 2;
-            print(robotNumber);
+            player.play('audios/sonido$robotNumber.mp3'); // Plays the sound
           });
         },
-        child: Image.asset('images/robot$robotNumber.png'),
+        child: Image.asset(
+            'images/robot$robotNumber.png'), // Displays the robot PNGs that display the message
       ),
     );
   }
