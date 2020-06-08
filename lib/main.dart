@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,7 +57,7 @@ class Robot extends StatefulWidget {
 }
 
 class _RobotState extends State<Robot> {
-  int robotNumber = 1;
+  int robotNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -118,37 +117,6 @@ class _RobotState extends State<Robot> {
   }
 }
 
-class DisplayedText extends StatefulWidget {
-  @override
-  _DisplayedTextState createState() => _DisplayedTextState();
-}
-
-class _DisplayedTextState extends State<DisplayedText> {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 250.0,
-      child: TypewriterAnimatedTextKit(
-          onTap: () {
-            print(
-              _getPhrase(),
-            );
-            setState(() {
-              _getPhrase();
-            });
-          },
-          text: [
-            _getPhrase(),
-          ],
-          isRepeatingAnimation: false,
-          textStyle: TextStyle(fontSize: 30.0, fontFamily: "Agne"),
-          textAlign: TextAlign.start,
-          alignment: AlignmentDirectional.topStart // or Alignment.topLeft
-          ),
-    );
-  }
-}
-
 _launchURL() async {
   const url = 'https://afterworkenespanol.com';
   if (await canLaunch(url)) {
@@ -156,17 +124,4 @@ _launchURL() async {
   } else {
     throw 'Could not launch $url';
   }
-}
-
-_getPhrase() {
-  var randomizado = "";
-  var phrases = [
-    "Tu jefe es un INCOMPETENTE",
-    "Tu jefe es un CABRÓN",
-    "Tu jefa es IMBÉCIL",
-    "Tu jefa no sirve para nada",
-    "Tu jefe es un caraverga"
-  ];
-  randomizado = phrases[Random().nextInt(4)];
-  return randomizado;
 }
